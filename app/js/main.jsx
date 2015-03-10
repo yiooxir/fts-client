@@ -1,14 +1,60 @@
-/**
- * Created by sergey on 07.03.15.
- */
-//var $ = require('jquery');
 var React = require('react');
-var a = require('./api/api');
+var Router = require('react-router');
+//var { Route, DefaultRoute, RouteHandler, Link } = Router;
+var Route = Router.Route,
+    DefaultRoute = Router.DefaultRoute,
+    RouteHandler = Router.RouteHandler,
+    Link = Router.Link;
+var data = require('./data/data');
 
-var Hello = React.createClass({
+var Nav = React.createClass({
     render: function() {
-        return (<div> hello world 1v 1 1!!! </div>)
+        return (
+            <nav className="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">FTS system </a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Фирмы <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Nav header</li>
+                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">One more separated link</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#about">Администрирование</a></li>
+                        <li><a href="#contact">О программе</a></li>
+                    </ul>
+                        </div>
+            </nav>
+        )
     }
 });
 
-React.render(<Hello />, document.body);
+var App = React.createClass({
+    mixins: [ Router.State ],
+
+    render: function () {
+        return (
+            <RouteHandler/>
+        );
+    }
+});
+
+var routes = (
+    <Route handler={App}>
+        <DefaultRoute handler={Nav}/>
+    </Route>
+);
+
+Router.run(routes, function (Handler) {
+    React.render(<Handler/>, document.body);
+});

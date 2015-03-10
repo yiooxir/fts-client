@@ -47,9 +47,10 @@ gulp.task('html', function () {
 
 gulp.task('css', function () {
     gulp.src('./app/css/*.css')
-        .pipe(gulp.dest('./build'))
+        .pipe(gulp.dest('./build/css'))
         .pipe(connect.reload());
 });
+
 
 gulp.task('watch', function () {
     gulp.watch('./app/js/*.js',   ['js']);
@@ -57,6 +58,7 @@ gulp.task('watch', function () {
     gulp.watch('./app/css/*.css',    ['css']);
     gulp.watch('./app/js/*.jsx', ['browserify', 'js']);
 });
+
 
 gulp.task('build', ['browserify']);
 gulp.task('develop', ['build', 'connect', 'open', 'watch']);
